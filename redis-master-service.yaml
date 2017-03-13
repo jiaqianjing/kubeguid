@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-master
+  labels:
+    name: redis-master
+    test: v2
+spec:
+  ports:
+    # the port that this service should serve on
+  - port: {{ svc.redis-master.port }}
+    targetPort: {{ svc.redis-master.port }}
+  selector:
+    name: redis-master
