@@ -6,7 +6,7 @@ metadata:
     name: redis-slave
     test: v2
 spec:
-  replicas: {{ rc.redis-slave.number }}
+  replicas: 2
   selector:
     name: redis-slave
   template:
@@ -16,7 +16,10 @@ spec:
         test: v2
     spec:
       containers:
-      - name: {{ rc.redis-slave.name }}
-        image: {{ rc.redis-slave.image }}:{{ rc.redis-slave.version }}
+      - name: slave
+        image: kubeguide/guestbook-redis-slave
+        env:
+        - name: GET_HOSTS_FROM
+          value: env
         ports:
-        - containerPort: {{ rc.redis-slave.port }}
+        - containerPort: 6379

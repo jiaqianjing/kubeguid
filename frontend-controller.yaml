@@ -4,19 +4,20 @@ metadata:
   name: frontend
   labels:
     name: frontend
-    test: v2
 spec:
-  replicas: {{ rc.frontend.number }}
+  replicas: 3
   selector:
     name: frontend
   template:
     metadata:
       labels:
         name: frontend
-        test: v2
     spec:
       containers:
-      - name: {{ rc.frontend.name }}
-        image: {{ rc.frontend.image }}:{{ rc.frontend.version }}
+      - name: frontend
+        image: kubeguide/guestbook-php-frontend
+        env:
+        - name: GET_HOSTS_FROM
+          value: env
         ports:
-        - containerPort: {{ rc.frontend.port }}
+        - containerPort: 80
